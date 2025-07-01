@@ -46,7 +46,7 @@ def receiver():
 
 @webhook.route('/events', methods=["GET"])
 def get_events():
-    events = list(mongo.db.events.find().sort("timestamp", -1))
+    events = list(mongo.db.events.find())
     for e in events:
         e["_id"] = str(e["_id"])
-    return jsonify(events)
+    return jsonify(events[::-1])
